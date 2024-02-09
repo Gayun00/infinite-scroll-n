@@ -9,6 +9,8 @@
 # testing
 /coverage
 
+.yarn/cache
+
 # next.js
 /.next/
 /out/
