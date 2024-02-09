@@ -17,7 +17,11 @@ function InfiniteScrollTrigger({
   });
 
   return (
-    <>{hasNextPage && !isFetchingNextPage && <div ref={targetRef}></div>}</>
+    <>
+      {hasNextPage && !isFetchingNextPage && (
+        <div className="h-40" ref={targetRef} />
+      )}
+    </>
   );
 }
 
