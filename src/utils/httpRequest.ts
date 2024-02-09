@@ -3,6 +3,7 @@ import { RequestParams } from "@/types/httpRequest";
 
 const headers: HeadersInit = {
   "Content-Type": "application/json; charset=utf-8",
+  "Cache-Control": "no-cache",
 };
 
 const fetchRequest = <TParams>({
@@ -10,7 +11,6 @@ const fetchRequest = <TParams>({
   method,
   queryParams,
   params,
-  shouldAuthorize,
 }: RequestParams<TParams>) => {
   const convertedParams = queryParams
     ? Object.entries(queryParams).reduce(
@@ -41,33 +41,22 @@ const fetchRequest = <TParams>({
   });
 };
 
-const handleRequest = (option?: { isMock: true }) => {
-  return {
-    get<TParams, TResponse>(
-      params: RequestParams<TParams>
-    ): Promise<TResponse> {
-      return fetchRequest<TParams>({ ...params, method: "get", ...option });
-    },
+export const request = {
+  get<TParams, TResponse>(params: RequestParams<TParams>): Promise<TResponse> {
+    return fetchRequest<TParams>({ ...params, method: "get" });
+  },
 
-    post<TParams, TResponse>(
-      params: RequestParams<TParams>
-    ): Promise<TResponse> {
-      return fetchRequest({ ...params, method: "post", ...option });
-    },
+  post<TParams, TResponse>(params: RequestParams<TParams>): Promise<TResponse> {
+    return fetchRequest({ ...params, method: "post" });
+  },
 
-    put<TParams, TResponse>(
-      params: RequestParams<TParams>
-    ): Promise<TResponse> {
-      return fetchRequest({ ...params, method: "put", ...option });
-    },
+  put<TParams, TResponse>(params: RequestParams<TParams>): Promise<TResponse> {
+    return fetchRequest({ ...params, method: "put" });
+  },
 
-    delete<TParams, TResponse>(
-      params: RequestParams<TParams>
-    ): Promise<TResponse> {
-      return fetchRequest({ ...params, method: "delete", ...option });
-    },
-  };
+  delete<TParams, TResponse>(
+    params: RequestParams<TParams>
+  ): Promise<TResponse> {
+    return fetchRequest({ ...params, method: "delete" });
+  },
 };
-
-export const request = handleRequest();
-export const mockedRequest = handleRequest({ isMock: true });
