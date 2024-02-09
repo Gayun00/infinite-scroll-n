@@ -1,3 +1,3 @@
 export const URL = {
-  API: "/api",
+  API: "https://api.itbook.store/1.0",
 };
