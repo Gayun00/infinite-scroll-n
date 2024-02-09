@@ -1,5 +1,6 @@
 import React from "react";
 import ProductItem from "../ProductItem";
+import { Product } from "@/types/product";
 
 interface Props {
   data: Product[];

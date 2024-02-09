@@ -1,6 +1,12 @@
+import { GetProductResponse } from "@/types/product";
 import { request } from "@/utils/httpRequest";
 
-// example
-export const getExample = () => {
-  request.get({ path: "/product" });
+export const getProducts = () => {
+  return request
+    .get<any, GetProductResponse>({
+      path: "/product",
+      // TODO: add pagination query params
+      queryParams: {},
+    })
+    .then((data) => data.data);
 };
