@@ -1,9 +1,18 @@
 export interface Product {
-  title: string;
+  image: string;
+  isbn13: string;
   price: string;
-  imageUrl: string;
+  subtitle: string;
+  title: string;
+  url: string;
 }
 
-export interface GetProductResponse {
-  data: Product[];
+export interface CommonResponse {
+  total: string;
+  error: string;
+}
+
+export interface GetProductResponse extends CommonResponse {
+  page: string;
+  books: Product[];
 }

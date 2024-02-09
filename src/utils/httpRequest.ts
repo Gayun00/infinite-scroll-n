@@ -1,11 +1,6 @@
 import { URL } from "@/constants";
 import { RequestParams } from "@/types/httpRequest";
 
-const headers: HeadersInit = {
-  "Content-Type": "application/json; charset=utf-8",
-  "Cache-Control": "no-cache",
-};
-
 const fetchRequest = <TParams>({
   path,
   method,
@@ -29,7 +24,6 @@ const fetchRequest = <TParams>({
   const searchParams = new URLSearchParams(convertedParams).toString();
 
   return fetch(`${URL.API}${path}${searchParams ? `?${searchParams}` : ""}`, {
-    headers,
     method,
     body: JSON.stringify(params),
   }).then((res) => {
