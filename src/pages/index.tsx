@@ -1,12 +1,21 @@
-import { Inter } from "next/font/google";
+import ProductList from "@/components/ProductList";
 
-const inter = Inter({ subsets: ["latin"] });
+const mockData = [
+  { imageUrl: "", title: "title", price: "price" },
+  { imageUrl: "", title: "title", price: "price" },
+  { imageUrl: "", title: "title", price: "price" },
+  { imageUrl: "", title: "title", price: "price" },
+  { imageUrl: "", title: "title", price: "price" },
+  { imageUrl: "", title: "title", price: "price" },
+];
 
 export default function Home() {
   return (
-    <main
-    >
-
-    </main>
+    <div className="p-10 flex flex-col items-center gap-10 font-bold text-lg">
+      <h1>Infinite scroll</h1>
+      <main>
+        <ProductList data={mockData} />
+      </main>
+    </div>
   );
 }
