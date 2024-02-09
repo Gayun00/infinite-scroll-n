@@ -1,16 +1,13 @@
 import { getProducts } from "@/apis/product";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-
-export const useGetProductsQuery = ({ page }: { page: number }) => {
-  return useQuery({ queryKey: ["product"], queryFn: () => getProducts(page) });
-};
+import { GetProductResponse } from "@/types/product";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 export const useGetProductsInfiniteQuery = () => {
   return useInfiniteQuery({
     queryKey: ["product"],
     queryFn: ({ pageParam }) => getProducts(pageParam),
 
-    getNextPageParam: (lastPage: any) => {
+    getNextPageParam: (lastPage: GetProductResponse) => {
       const nextPage = parseInt(lastPage.page) + 1;
       const totalItems = parseInt(lastPage.total);
       if (nextPage * 10 <= totalItems) {

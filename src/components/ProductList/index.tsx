@@ -3,21 +3,33 @@ import ProductItem from "../ProductItem";
 import { Product } from "@/types/product";
 
 interface Props {
+  title: string;
   data: Product[];
 }
 
-const ProductList = ({ data }: Props) => {
+const ProductList = ({ title, data }: Props) => {
   return (
-    <div className="flex gap-5 flex-wrap">
-      {data.map((product, index) => (
-        <ProductItem
-          key={index}
-          title={product.title}
-          price={product.price}
-          imageUrl={product.imageUrl}
-        />
-      ))}
-    </div>
+    <section className="w-full py-12 min-w-[500px]">
+      <div className="container grid gap-6 md:gap-8 px-4 md:px-6 max-w-xl mx-auto lg:max-w-none">
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
+          <div className="grid gap-1">
+            <span className="flex items-center gap-x-3">
+              <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
+            </span>
+          </div>
+        </div>
+        <div className="grid lg:grid-cols-3 gap-8">
+          {data.map((product, index) => (
+            <ProductItem
+              key={index}
+              title={product.title}
+              price={product.price}
+              image={product.image}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 

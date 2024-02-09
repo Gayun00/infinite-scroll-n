@@ -3,30 +3,34 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
 
 interface Props {
-  title: string;
-  imageUrl: string;
+  image: string;
   price: string;
+  title: string;
 }
 
-const ProductItem = ({ title, imageUrl, price }: Props) => {
+const ProductItem = ({ title, image, price }: Props) => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
+    <Card className="flex flex-col justify-between">
       <CardContent>
-        <CardDescription>
-          <Image height={200} width={200} alt="product_img" src={imageUrl} />
-        </CardDescription>
+        <Image
+          src={image}
+          alt={`${title}_image`}
+          className="rounded-lg object-cover w-full aspect-[3/4] "
+          height={600}
+          width={450}
+        />
+        <div className="space-y-3">
+          <CardTitle className="text-md overflow-ellipsis overflow-hidden line-clamp-2">
+            {title}
+          </CardTitle>
+        </div>
+        <CardDescription>{price}</CardDescription>
       </CardContent>
-      <CardFooter>{price}</CardFooter>
     </Card>
   );
 };
