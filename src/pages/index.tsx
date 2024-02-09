@@ -1,14 +1,11 @@
+import InfiniteScrollTrigger from "@/components/InfiniteScrollTrigger";
 import ProductList from "@/components/ProductList";
-import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import { useGetProductsInfiniteQuery } from "@/queries/product";
 import { Fragment } from "react";
 
 export default function Home() {
-  const { data, fetchNextPage } = useGetProductsInfiniteQuery();
-
-  const { targetRef } = useIntersectionObserver({
-    onIntersect: fetchNextPage,
-  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetProductsInfiniteQuery();
 
   return (
     <div className="p-10 flex flex-col items-center gap-10 font-bold text-lg">
@@ -21,7 +18,11 @@ export default function Home() {
           </Fragment>
         ))}
 
-        <div className="bg-slate-100 h-9" ref={targetRef} />
+        <InfiniteScrollTrigger
+          fetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+        />
       </main>
     </div>
   );
