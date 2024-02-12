@@ -1,13 +1,11 @@
-import React from "react";
-import ProductItem from "../ProductItem";
-import { Product } from "@/types/product";
+import React, { ReactNode } from "react";
 
 interface Props {
   title: string;
-  data: Product[];
+  children: ReactNode;
 }
 
-const ProductList = ({ title, data }: Props) => {
+const ProductList = ({ title, children }: Props) => {
   return (
     <section className="w-full py-12 min-w-[500px]">
       <div className="container grid gap-6 md:gap-8 px-4 md:px-6 max-w-xl mx-auto lg:max-w-none">
@@ -18,16 +16,7 @@ const ProductList = ({ title, data }: Props) => {
             </span>
           </div>
         </div>
-        <div className="grid lg:grid-cols-3 gap-8">
-          {data.map((product, index) => (
-            <ProductItem
-              key={index}
-              title={product.title}
-              price={product.price}
-              image={product.image}
-            />
-          ))}
-        </div>
+        <div className="grid lg:grid-cols-3 gap-8">{children}</div>
       </div>
     </section>
   );

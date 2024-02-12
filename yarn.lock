@@ -19,7 +19,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.23.7":
+"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.23.7":
   version: 7.23.9
   resolution: "@babel/runtime@npm:7.23.9"
   dependencies:
@@ -306,6 +306,25 @@ __metadata:
   version: 5.18.1
   resolution: "@tanstack/query-core@npm:5.18.1"
   checksum: dd831e508fa4519a6e88af1f48e24c75f8c603d77dc603745c3f69ab6d650ba85b43041ab19572f20139dde13c56e6f477552228d469371b01ebe4268933a795
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-devtools@npm:5.20.1":
+  version: 5.20.1
+  resolution: "@tanstack/query-devtools@npm:5.20.1"
+  checksum: ab441c506a6d2aaa05be0bbba2f6a0344ced300e6e9a7bf532b0783146ccce6b05cbef9ed8e9e76260abc828e0cfb0fa318a03a5b2561605ac88a8702f98f399
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-devtools@npm:^5.20.1":
+  version: 5.20.1
+  resolution: "@tanstack/react-query-devtools@npm:5.20.1"
+  dependencies:
+    "@tanstack/query-devtools": 5.20.1
+  peerDependencies:
+    "@tanstack/react-query": ^5.20.1
+    react: ^18.0.0
+  checksum: 328f51684bf017dfda92df098b7fbff57074290c3ecf41e0202da0252912ddd6c7bb69705f37c49deaba51b8d5c69d423f7a019339bc3649fc80656c940b8c69
   languageName: node
   linkType: hard
 
@@ -1990,6 +2009,7 @@ __metadata:
   resolution: "infinite-scroll@workspace:."
   dependencies:
     "@tanstack/react-query": ^5.18.1
+    "@tanstack/react-query-devtools": ^5.20.1
     "@types/node": ^20
     "@types/react": ^18
     "@types/react-dom": ^18
@@ -2003,6 +2023,7 @@ __metadata:
     postcss: ^8
     react: ^18
     react-dom: ^18
+    react-error-boundary: ^4.0.12
     tailwind-merge: ^2.2.1
     tailwindcss: ^3.3.0
     tailwindcss-animate: ^1.0.7
@@ -3194,6 +3215,17 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
+  languageName: node
+  linkType: hard
+
+"react-error-boundary@npm:^4.0.12":
+  version: 4.0.12
+  resolution: "react-error-boundary@npm:4.0.12"
+  dependencies:
+    "@babel/runtime": ^7.12.5
+  peerDependencies:
+    react: ">=16.13.1"
+  checksum: c4a14c2b609037baba394d8871fb021a7c16fb1abfd8d23b2d2aa331bdcc420e5cff4b3d48f2f2ac7fa64ac90c322d0bcf358d706995b30df5a8d5fcb0c27b1e
   languageName: node
   linkType: hard
 

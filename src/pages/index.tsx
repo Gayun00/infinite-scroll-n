@@ -1,27 +1,41 @@
-import ProductList from "@/components/ProductList";
-import useIntersectionObserver from "@/hooks/useIntersectionObserver";
+import React, { Fragment } from "react";
 import { useGetProductsInfiniteQuery } from "@/queries/product";
-import { Fragment } from "react";
+import InfiniteScrollTrigger from "@/components/InfiniteScrollTrigger";
+import ProductItem from "@/components/ProductItem";
+import ProductList from "@/components/ProductList";
+import ProductItemSkeleton from "@/components/fallbacks/ProductItemSkeleton";
 
 export default function Home() {
-  const { data, fetchNextPage } = useGetProductsInfiniteQuery();
-
-  const { targetRef } = useIntersectionObserver({
-    onIntersect: fetchNextPage,
-  });
-
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetProductsInfiniteQuery();
   return (
     <div className="p-10 flex flex-col items-center gap-10 font-bold text-lg">
       <h1>Infinite scroll</h1>
-      {/* TODO: add skeletons */}
       <main>
-        {data?.pages?.map((page, idx) => (
-          <Fragment key={idx}>
-            <ProductList title="상품 목록" data={page.books}></ProductList>
-          </Fragment>
-        ))}
+        <ProductList title="상품 목록">
+          {data?.pages?.map((page, idx) => (
+            <Fragment key={idx}>
+              {page.books.map((product, idx) => (
+                <ProductItem
+                  key={idx}
+                  title={product.title}
+                  price={product.price}
+                  image={product.image}
+                />
+              ))}
+            </Fragment>
+          ))}
 
-        <div className="bg-slate-100 h-9" ref={targetRef} />
+          {(isLoading || isFetchingNextPage) && (
+            <ProductItemSkeleton count={9} />
+          )}
+
+          <InfiniteScrollTrigger
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          />
+        </ProductList>
       </main>
     </div>
   );
