@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import { Product } from "@/types/product";
 
 interface Props {
   title: string;

@@ -1,25 +1,23 @@
+import React, { Fragment } from "react";
+import { useGetProductsInfiniteQuery } from "@/queries/product";
 import InfiniteScrollTrigger from "@/components/InfiniteScrollTrigger";
 import ProductItem from "@/components/ProductItem";
 import ProductList from "@/components/ProductList";
-import { useGetProductsInfiniteQuery } from "@/queries/product";
-import { Fragment } from "react";
+import ProductItemSkeleton from "@/components/fallbacks/ProductItemSkeleton";
 
 export default function Home() {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    // TODO: use prefetch wigh pagination
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetProductsInfiniteQuery();
-
   return (
     <div className="p-10 flex flex-col items-center gap-10 font-bold text-lg">
       <h1>Infinite scroll</h1>
-      {/* TODO: add skeletons */}
       <main>
         <ProductList title="상품 목록">
           {data?.pages?.map((page, idx) => (
             <Fragment key={idx}>
-              {page.books.map((product, index) => (
+              {page.books.map((product, idx) => (
                 <ProductItem
-                  key={index}
+                  key={idx}
                   title={product.title}
                   price={product.price}
                   image={product.image}
@@ -27,6 +25,10 @@ export default function Home() {
               ))}
             </Fragment>
           ))}
+
+          {(isLoading || isFetchingNextPage) && (
+            <ProductItemSkeleton count={9} />
+          )}
 
           <InfiniteScrollTrigger
             fetchNextPage={fetchNextPage}
