@@ -20,7 +20,7 @@ const ProductItem = ({ title, image, price }: Props) => {
         <Image
           src={image}
           alt={`${title}_image`}
-          className="rounded-lg object-cover w-full aspect-[3/4] "
+          className="rounded-lg object-cover w-full aspect-[3/4]"
           height={600}
           width={450}
         />

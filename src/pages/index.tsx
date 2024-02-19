@@ -8,6 +8,7 @@ import ProductItemSkeleton from "@/components/fallbacks/ProductItemSkeleton";
 export default function Home() {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetProductsInfiniteQuery();
+
   return (
     <div className="p-10 flex flex-col items-center gap-10 font-bold text-lg">
       <h1>Infinite scroll</h1>
