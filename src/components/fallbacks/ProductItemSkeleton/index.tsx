@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface Props {
@@ -19,13 +14,9 @@ const ProductItemSkeleton = ({ count }: Props) => {
           <CardContent className="flex flex-col gap-y-5">
             <Skeleton className="w-full aspect-[3/4] rounded-xl" />
             <div className="space-y-3">
-              <CardTitle className="text-md overflow-ellipsis overflow-hidden line-clamp-2">
-                <Skeleton className="h-4 w-[250px]" />
-              </CardTitle>
+              <Skeleton className="h-4 w-[250px]" />
             </div>
-            <CardDescription>
-              <Skeleton className="h-4 w-[200px]" />
-            </CardDescription>
+            <Skeleton className="h-4 w-[200px]" />
           </CardContent>
         </Card>
       ))}
