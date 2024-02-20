@@ -14,18 +14,16 @@ export default function Home() {
       <h1>Infinite scroll</h1>
       <main>
         <ProductList title="상품 목록">
-          {data?.pages?.map((page, idx) => (
-            <Fragment key={idx}>
-              {page.books.map((product, idx) => (
-                <ProductItem
-                  key={idx}
-                  title={product.title}
-                  price={product.price}
-                  image={product.image}
-                />
-              ))}
-            </Fragment>
-          ))}
+          {data?.pages
+            ?.flatMap(({ books }) => books)
+            .map((product) => (
+              <ProductItem
+                key={product.isbn13}
+                title={product.title}
+                price={product.price}
+                image={product.image}
+              />
+            ))}
 
           {(isLoading || isFetchingNextPage) && (
             <ProductItemSkeleton count={9} />
