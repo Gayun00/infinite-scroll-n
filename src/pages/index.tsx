@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React, { useEffect } from "react";
+import useScrollPosition from "@/hooks/useScrollPosition";
 import { useGetProductsInfiniteQuery } from "@/queries/product";
 import InfiniteScrollTrigger from "@/components/InfiniteScrollTrigger";
 import ProductItem from "@/components/ProductItem";
@@ -8,6 +9,13 @@ import ProductItemSkeleton from "@/components/fallbacks/ProductItemSkeleton";
 export default function Home() {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetProductsInfiniteQuery();
+  const { savedScrollPosition, scrollToSavedPosition } = useScrollPosition();
+
+  useEffect(() => {
+    if (savedScrollPosition) {
+      scrollToSavedPosition();
+    }
+  }, []);
 
   return (
     <div className="p-10 flex flex-col items-center gap-10 font-bold text-lg">
@@ -22,6 +30,7 @@ export default function Home() {
                 title={product.title}
                 price={product.price}
                 image={product.image}
+                isbn13={product.isbn13}
               />
             ))}
 
