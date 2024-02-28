@@ -6,6 +6,7 @@ import ProductItem from "@/components/ProductItem";
 import ProductList from "@/components/ProductList";
 import ProductItemSkeleton from "@/components/fallbacks/ProductItemSkeleton";
 import { FixedSizeGrid as Grid } from "react-window";
+import InfiniteGridExample from "@/components/Example";
 
 export default function Home() {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -58,7 +59,7 @@ export default function Home() {
     <div className="p-10 flex flex-col items-center gap-10 font-bold text-lg">
       <h1>Infinite scroll</h1>
       <main>
-        <Example />
+        <InfiniteGridExample />
         {/* <ProductList title="상품 목록">
           {data?.pages
             ?.flatMap(({ books }) => books)
