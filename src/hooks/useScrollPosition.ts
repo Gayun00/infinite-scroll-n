@@ -1,5 +1,8 @@
 const useScrollPosition = () => {
-  const savedScrollPosition = Number(sessionStorage.getItem("scrollPosition"));
+  const savedScrollPosition =
+    typeof window !== undefined
+      ? 0
+      : Number(sessionStorage.getItem("scrollPosition")) || 0;
 
   const saveScrollPosition = () => {
     sessionStorage.setItem("scrollPosition", String(window.scrollY));
