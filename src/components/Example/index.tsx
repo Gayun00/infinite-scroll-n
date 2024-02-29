@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button, Typography, Box, Grid } from "@material-ui/core";
 import { Table } from "../Table";
+import { useGetProductsInfiniteQuery } from "@/queries/product";
+import { Product } from "@/types/product";
 
 export type ItemType = {
   firstName: string;
@@ -9,9 +11,12 @@ export type ItemType = {
 };
 
 const InfiniteGridExample: React.FC = () => {
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetProductsInfiniteQuery();
+  const flattenedData = data?.pages?.flatMap(({ books }) => books);
   const [loadedItemsState, setLoadedItemsState] = useState<{
     hasNextPage: boolean;
-    items: ItemType[];
+    items: Product[];
   }>({
     hasNextPage: true,
     items: [],
@@ -25,25 +30,12 @@ const InfiniteGridExample: React.FC = () => {
   });
 
   let loadMoreItems = (startIndex: number, stopIndex: number): Promise<any> => {
-    return new Promise(() =>
-      setTimeout(() => {
-        setLoadedItemsState({
-          hasNextPage: loadedItemsState.items.length < 100,
-          items: [...loadedItemsState.items].concat(
-            new Array(10).fill(true).map(() => ({
-              firstName: "firstname",
-              lastName: "lastname",
-              suffix: "suffix",
-            }))
-          ),
-        });
-      }, 1500)
-    );
+    console.log(startIndex, stopIndex);
+    return new Promise(() => fetchNextPage());
   };
 
   // the item is loaded if either 1) there are no more pages or 2) there exists an item at that index
-  let isItemLoaded = (index: number) =>
-    !loadedItemsState.hasNextPage || !!loadedItemsState.items[index];
+  let isItemLoaded = (index: number) => hasNextPage || !!flattenedData?.[index];
 
   const setScrollRowAndColum = React.useCallback(
     (rowIndex: number, columnIndex: number) => {
@@ -55,7 +47,7 @@ const InfiniteGridExample: React.FC = () => {
   const showTableCallback = React.useCallback(() => setShowTable(true), []);
   const hideTableCallback = React.useCallback(() => setShowTable(false), []);
 
-  const { hasNextPage, items } = loadedItemsState;
+  const { items } = loadedItemsState;
 
   return showTable ? (
     <>
@@ -79,7 +71,7 @@ const InfiniteGridExample: React.FC = () => {
 
         <Table
           hasNextPage={hasNextPage}
-          items={items}
+          items={flattenedData}
           loadMoreItems={loadMoreItems}
           isItemLoaded={isItemLoaded}
           scrollState={scrollState}

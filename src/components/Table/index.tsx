@@ -6,8 +6,9 @@ import {
 } from "react-window";
 import { ItemType } from "../Example";
 import { InfiniteLoader } from "../InfiniteLoader";
+import { Product } from "@/types/product";
 
-const ROW_HEIGHT = 30;
+const ROW_HEIGHT = 80;
 const COLUMN_WIDTH = 200;
 const TABLE_HEIGHT = 200;
 const TABLE_WIDTH = 600;
@@ -17,7 +18,7 @@ type Props = {
   // are there still more items to load?
   hasNextPage: boolean;
   // items loaded so far
-  items: ItemType[];
+  items: Product[];
   // Callback function that knows how to load more items
   loadMoreItems: (startIndex: number, stopIndex: number) => Promise<any>;
   //Callback function determining if the item at an index is loaded
@@ -32,7 +33,7 @@ type Props = {
 export const Table: React.FunctionComponent<Props> = (props) => {
   const { hasNextPage, items, loadMoreItems, isItemLoaded } = props;
 
-  const itemCount = hasNextPage ? items.length + 1 : items.length;
+  const itemCount = hasNextPage ? items?.length + 1 : items?.length;
 
   const Item: GridProps["children"] = ({ columnIndex, rowIndex, style }) => {
     let content;
@@ -41,13 +42,13 @@ export const Table: React.FunctionComponent<Props> = (props) => {
     } else {
       switch (columnIndex) {
         case 0:
-          content = items[rowIndex].firstName;
+          content = items[rowIndex]?.title;
           break;
         case 1:
-          content = items[rowIndex].lastName;
+          content = items[rowIndex]?.subtitle;
           break;
         case 2:
-          content = items[rowIndex].suffix;
+          content = items[rowIndex]?.isbn13;
       }
     }
     return <div style={style}>{content}</div>;
@@ -104,30 +105,30 @@ export const Table: React.FunctionComponent<Props> = (props) => {
 
 type ItemData = {
   isItemLoaded: (index: number) => boolean;
-  items: ItemType[];
+  items: Product[];
 };
 
-export const Item: React.FunctionComponent<
-  Omit<GridChildComponentProps, "data"> & {
-    data: ItemData;
-  }
-> = (props) => {
-  const { rowIndex, columnIndex, data, style } = props;
-  const { isItemLoaded, items } = data;
-  let content;
-  if (!isItemLoaded(rowIndex)) {
-    content = "Loading...";
-  } else {
-    switch (columnIndex) {
-      case 0:
-        content = items[rowIndex].firstName;
-        break;
-      case 1:
-        content = items[rowIndex].lastName;
-        break;
-      case 2:
-        content = items[rowIndex].suffix;
-    }
-  }
-  return <div style={style}>{content}</div>;
-};
+// export const Item: React.FunctionComponent<
+//   Omit<GridChildComponentProps, "data"> & {
+//     data: ItemData;
+//   }
+// > = (props) => {
+//   const { rowIndex, columnIndex, data, style } = props;
+//   const { isItemLoaded, items } = data;
+//   let content;
+//   if (!isItemLoaded(rowIndex)) {
+//     content = "Loading...";
+//   } else {
+//     switch (columnIndex) {
+//       case 0:
+//         content = items[rowIndex].title;
+//         break;
+//       case 1:
+//         content = items[rowIndex].subtitle;
+//         break;
+//       case 2:
+//         content = items[rowIndex].isbn13;
+//     }
+//   }
+//   return <div style={style}>{content}</div>;
+// };
