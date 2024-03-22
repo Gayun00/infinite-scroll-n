@@ -6,16 +6,27 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import useScrollPosition from "@/hooks/useScrollPosition";
 
 interface Props {
   image: string;
   price: string;
   title: string;
+  isbn13: string;
 }
 
-const ProductItem = ({ title, image, price }: Props) => {
+const ProductItem = ({ title, image, price, isbn13 }: Props) => {
+  const { saveScrollPosition } = useScrollPosition();
+  const router = useRouter();
+
+  const goToDetailPage = () => {
+    router.push(`/books/${isbn13}`);
+    saveScrollPosition();
+  };
+
   return (
-    <Card className="flex flex-col justify-between">
+    <Card className="flex flex-col justify-between" onClick={goToDetailPage}>
       <CardContent>
         <Image
           src={image}
